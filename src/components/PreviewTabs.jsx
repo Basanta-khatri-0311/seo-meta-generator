@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PreviewCard from "./PreviewCard";
 
 const tabs = ["Google", "Facebook", "Twitter"];
-const PreviewTabs = () => {
+const PreviewTabs = ({metaData}) => {
   const [active, setActive] = useState("Google");
   return (
     <div className="w-full">
@@ -22,7 +22,7 @@ const PreviewTabs = () => {
         ))}
       </div>
       <div className="mt-4">
-        <PreviewCard platform={active} />
+        <PreviewCard platform={active} metaData={metaData} />
       </div>
     </div>
   );
