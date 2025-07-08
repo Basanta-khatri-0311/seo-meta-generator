@@ -40,12 +40,6 @@ const MetaForm = ({ metaData, setMetaData }) => {
         className="w-full p-3 border rounded-lg text-sm sm:text-base focus:outline-blue-500"
         placeholder="Image URL"
       />
-      <button
-        type="buton"
-        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
-      >
-        Copy Meta Tags
-      </button>
     </form>
   );
 };
