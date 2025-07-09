@@ -2,10 +2,11 @@ import React from "react";
 
 const PreviewCard = ({ platform, metaData }) => {
   const { title, description, image, url } = metaData;
-  const placeholderImage = "https://via.placeholder.com/600x300?text=Image+Preview";
+  const placeholderImage =
+    "https://via.placeholder.com/600x300?text=Image+Preview";
 
   const renderGooglePreview = () => (
-    <div className="border p-4 bg-white dark:bg-[#1c1c1c] rounded shadow max-w-full sm:max-w-md transition-colors">
+    <div className="border border-blue-600 dark:border-gray-700 p-4 bg-white dark:bg-[#1c1c1c] rounded shadow max-w-full sm:max-w-md transition-colors">
       <h2 className="text-blue-700 dark:text-blue-400 text-lg font-semibold">
         {title || "Your Page Title"}
       </h2>
@@ -22,7 +23,7 @@ const PreviewCard = ({ platform, metaData }) => {
   );
 
   const renderFacebookPreview = () => (
-    <div className="bg-white dark:bg-[#1c1c1c] border rounded shadow max-w-full sm:max-w-md overflow-hidden transition-colors">
+    <div className="bg-white dark:bg-[#1c1c1c] border  border-blue-600 dark:border-gray-700 rounded shadow max-w-full sm:max-w-md overflow-hidden transition-colors">
       <img
         src={image || placeholderImage}
         alt="Facebook Preview"
@@ -46,7 +47,7 @@ const PreviewCard = ({ platform, metaData }) => {
   );
 
   const renderTwitterPreview = () => (
-    <div className="bg-white dark:bg-[#1c1c1c] border rounded shadow max-w-full sm:max-w-md p-4 transition-colors">
+    <div className="bg-white dark:bg-[#1c1c1c] border  border-blue-600 dark:border-gray-700 rounded shadow max-w-full sm:max-w-md p-4 transition-colors">
       <div className="flex flex-col gap-2">
         <span className="text-gray-500 dark:text-gray-400 text-xs">
           {url || "https://your-site.com"}

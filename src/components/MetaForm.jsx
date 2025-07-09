@@ -10,7 +10,10 @@ const MetaForm = ({ metaData, setMetaData }) => {
   };
 
   return (
-    <form className="space-y-5 w-full bg-white dark:bg-[#1c1c1c] p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm transition-colors">
+    <form className="space-y-5 w-full border-blue-600 bg-white dark:bg-[#1c1c1c] p-6 rounded-xl border dark:border-gray-700 shadow-sm transition-colors">
+      <h2 className="text-lg text-center sm:text-xl font-semibold text-gray-800 dark:text-white mb-6">
+        Fill in Meta Tag Details
+      </h2>
       <input
         name="title"
         value={metaData.title}
