@@ -14,6 +14,7 @@ const Home = () => {
       description: "",
       image: "",
       url: "",
+      uploadMode: false,
    });
    const [isDark, setIsDark] = useState(false);
 
