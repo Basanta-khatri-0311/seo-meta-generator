@@ -1,7 +1,61 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand-primary: #ff4d00;
+  --color-brand-secondary: #00ff88;
+  --color-brand-accent: #ffffff;
+  --color-dark-surface: #000000;
+  --color-dark-card: #0a0a0a;
+  --color-dark-border: #1a1a1a;
+}
+
+@layer base {
+  :root {
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    background-color: #ffffff;
+    color: #000000;
+  }
+
+  .dark body {
+    background-color: var(--color-dark-surface);
+    color: #ffffff;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border shadow-sm;
+  }
+  
+  .input-premium {
+    @apply w-full px-5 py-4 rounded-none border border-gray-200 dark:border-dark-border bg-white dark:bg-dark-surface text-sm text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-600 focus:outline-none focus:border-brand-primary transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply px-8 py-4 bg-brand-primary hover:bg-white hover:text-black border border-brand-primary text-white font-bold rounded-none uppercase tracking-widest text-xs transition-all duration-300 flex items-center justify-center gap-2 active:scale-[0.98];
+  }
+
+  .sidebar-item {
+     @apply flex items-center gap-4 px-6 py-4 rounded-none transition-all duration-200 cursor-pointer text-[11px] font-black uppercase tracking-widest border-l-2 border-transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-dark-surface;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-dark-border hover:bg-brand-primary;
+  }
+}
+
+
+
 @custom-variant dark (&:where(.dark, .dark *));
 
-body {
-  -webkit-font-smoothing: antialiased;
-}

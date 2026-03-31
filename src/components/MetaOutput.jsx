@@ -1,61 +1,88 @@
-import React from "react";
-import { generateMetaTags } from "../utils/metaBuilder";
-import jsPDF from "jspdf";
+import React, { useState } from "react";
 
 const MetaOutput = ({ metaData }) => {
-  const isMetaDataValid = () => {
-    if (!metaData) return false;
-    if (!metaData.title || !metaData.description) return false;
-    return true;
+  const [copiedHtml, setCopiedHtml] = useState(false);
+  const [copiedJson, setCopiedJson] = useState(false);
+  const { title, description, image, url } = metaData || {};
+
+  const htmlCode = `<!-- Primary Meta Tags -->
+<title>${title || ""}</title>
+<meta name="title" content="${title || ""}">
+<meta name="description" content="${description || ""}">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="${url || ""}">
+<meta property="og:title" content="${title || ""}">
+<meta property="og:description" content="${description || ""}">
+<meta property="og:image" content="${image || ""}">
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="${url || ""}">
+<meta property="twitter:title" content="${title || ""}">
+<meta property="twitter:description" content="${description || ""}">
+<meta property="twitter:image" content="${image || ""}">`;
+
+  const jsonCode = JSON.stringify(metaData, null, 2);
+
+  const handleCopyHtml = () => {
+    navigator.clipboard.writeText(htmlCode);
+    setCopiedHtml(true);
+    setTimeout(() => setCopiedHtml(false), 2000);
   };
 
-  const handleCopy = () => {
-    const tags = generateMetaTags(metaData);
-    navigator.clipboard.writeText(tags);
-    alert("✅ Meta tags copied to clipboard!");
-  };
-
-  const handleDownloadPDF = () => {
-    const doc = new jsPDF();
-    const tags = generateMetaTags(metaData);
-    doc.setFont("Courier");
-    doc.setFontSize(12);
-    doc.text(tags, 10, 10);
-    doc.save("meta-tags.pdf");
-  };
-
-  const handleSaveProject = () => {
-    localStorage.setItem("metalabs_metaData", JSON.stringify(metaData));
-    alert("✅ Project saved locally!");
+  const handleCopyJson = () => {
+    navigator.clipboard.writeText(jsonCode);
+    setCopiedJson(true);
+    setTimeout(() => setCopiedJson(false), 2000);
   };
 
   return (
-    <div className="w-full mt-8">
-      <h3 className="font-semibold text-lg mb-2">Generated Meta Tags</h3>
-      <pre className="bg-[#1e1e1e] text-green-200 p-4 rounded-md text-sm overflow-auto whitespace-pre-wrap font-mono border border-gray-700 shadow-inner">
-        {generateMetaTags(metaData)}
-      </pre>
-      <div className="flex gap-2 mt-2">
+    <div className="flex flex-col gap-8 w-full border border-gray-200 dark:border-dark-border p-10 bg-white dark:bg-dark-card animate-in fade-in duration-500">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div className="space-y-2">
+          <h2 className="text-xl font-black uppercase tracking-tighter text-gray-900 dark:text-white flex items-center gap-3">
+            <i className="ri-code-line text-brand-primary"></i>
+            Generated_Protocol
+          </h2>
+          <p className="text-[10px] text-gray-400 uppercase tracking-[0.2em] font-bold">Copy or export your metadata stack</p>
+        </div>
+        
         <button
-          disabled={!isMetaDataValid()}
-          onClick={handleCopy}
-          className="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+          onClick={handleCopyHtml}
+          className={`btn-primary !px-6 !py-3 !text-[10px] ${
+            copiedHtml 
+            ? "!bg-green-500 !border-green-500 !text-white" 
+            : ""
+          }`}
         >
-          Copy Meta Tags
+          <i className={copiedHtml ? "ri-check-line" : "ri-clipboard-line"}></i>
+          {copiedHtml ? "PROTOCOL_COPIED" : "COPY_MARKUP"}
         </button>
-        <button
-          disabled={!isMetaDataValid()}
-          onClick={handleDownloadPDF}
-          className="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition"
+      </div>
+
+      <div className="relative">
+        <pre className="w-full h-[400px] p-8 bg-gray-50 dark:bg-dark-surface text-gray-500 dark:text-gray-400 text-[13px] overflow-auto font-mono custom-scrollbar border border-gray-100 dark:border-dark-border">
+          <code>{htmlCode}</code>
+        </pre>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+        <button 
+          onClick={handleCopyJson}
+          className={`flex items-center justify-center gap-3 py-4 text-[10px] font-black uppercase tracking-widest transition-all border ${
+            copiedJson 
+            ? "bg-green-500 text-white border-green-500" 
+            : "bg-transparent text-gray-400 hover:text-brand-primary border-gray-200 dark:border-dark-border hover:border-brand-primary"
+          }`}
         >
-          Download PDF
+          <i className={copiedJson ? "ri-check-line" : "ri-file-code-line"}></i>
+          {copiedJson ? "JSON_DATA_COPIED" : "COPY_JSON_STREAM"}
         </button>
-        <button
-          disabled={!isMetaDataValid()}
-          onClick={handleSaveProject}
-          className="flex-1 bg-yellow-600 text-white py-2 rounded-lg hover:bg-yellow-700 transition"
-        >
-          Save Project
+        <button className="flex items-center justify-center gap-3 py-4 bg-transparent text-gray-400 hover:text-brand-primary border border-gray-200 dark:border-dark-border text-[10px] font-black uppercase tracking-widest transition-all hover:border-brand-primary">
+          <i className="ri-download-2-line"></i>
+          DOWNLOAD_PROTO.TXT
         </button>
       </div>
     </div>
