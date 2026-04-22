@@ -45,7 +45,7 @@ const SchemaGenerator = () => {
   return (
     <div className="flex flex-col lg:flex-row gap-8 animate-in fade-in slide-in-from-right-8 duration-700 pb-20">
       <div className="w-full lg:w-1/2 space-y-6">
-        <div className="glass-card p-8 rounded-3xl">
+        <div className="glass-card p-8 ">
           <div className="flex items-center gap-3 mb-8">
             <div className="w-12 h-12 bg-purple-500 rounded-2xl flex items-center justify-center shadow-lg shadow-purple-500/20">
               <i className="ri-node-tree text-white text-2xl"></i>
